@@ -11,24 +11,27 @@
       padding: 0;
     }
     body {
-      background: #fff;
+      background: #000;
       font-family: monospace, monospace;
-      color: #222;
+      color: #fff;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
+      box-sizing: border-box;
+      overflow-x: hidden;
     }
     h1 {
       font-size: 3em;
       margin: 0.5em 0;
-      color: #d32f2f; /* Red */
+      color: #ff5252; /* Bright red for contrast */
       letter-spacing: 0.03em;
     }
     .subtitle {
       font-size: 1.2em;
-      color: #d32f2f; /* Red */
+      color: #ff5252; /* Bright red */
       margin-bottom: 2em;
     }
     .links {
@@ -41,31 +44,71 @@
     }
     .links a {
       text-decoration: none;
-      color: #d32f2f; /* Red */
-      border: 1px solid #d32f2f;
+      color: #ff5252;
+      border: 1px solid #ff5252;
       padding: 0.4em 1em;
       border-radius: 6px;
       font-weight: bold;
       transition: background 0.15s, color 0.15s;
       font-size: 1.1em;
+      background: #111;
     }
     .links a:hover {
-      background: #d32f2f;
-      color: #fff;
+      background: #ff5252;
+      color: #000;
+    }
+    .functions {
+      margin-top: 3em;
+      display: flex;
+      flex-direction: row;
+      gap: 1.5em;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .functions a {
+      text-decoration: none;
+      color: #ff5252;
+      border: 1px solid #ff5252;
+      padding: 0.4em 1em;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.15s, color 0.15s;
+      font-size: 1.1em;
+      background: #111;
+    }
+    .functions a:hover {
+      background: #ff5252;
+      color: #000;
     }
     footer {
       margin-top: 2.5em;
       font-size: 0.9em;
       color: #888;
       text-align: center;
+      z-index: 1;
+    }
+    .fire-container {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 140px;
+      pointer-events: none;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
     }
     @media (max-width: 600px) {
       h1 {
         font-size: 2em;
       }
-      .links a {
+      .links a, .functions a {
         font-size: 1em;
         padding: 0.3em 0.8em;
+      }
+      .fire-container {
+        height: 80px;
       }
     }
   </style>
@@ -77,10 +120,55 @@
     <a href="https://github.com/chaddeu" target="_blank" rel="noopener">GitHub</a>
     <a href="mailto:chad@example.com">Email</a>
     <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a>
-    <!-- Add or customize more links as you wish -->
+  </div>
+  <div class="functions">
+    <a href="https://ibb.co/1GmB9RzV" target="_blank" rel="noopener">Games</a>
+    <a href="https://ibb.co/1GmB9RzV" target="_blank" rel="noopener">AI</a>
+    <a href="https://ibb.co/1GmB9RzV" target="_blank" rel="noopener">Tools</a>
+    <a href="https://ibb.co/1GmB9RzV" target="_blank" rel="noopener">More</a>
   </div>
   <footer>
     &copy; 2025 Chad World
   </footer>
+  <div class="fire-container">
+    <!-- SVG Fire Animation, responsive and flickering -->
+    <svg viewBox="0 0 800 140" width="100%" height="100%" preserveAspectRatio="none">
+      <defs>
+        <radialGradient id="fireGrad" cx="50%" cy="80%" r="70%" fx="50%" fy="90%">
+          <stop offset="0%" stop-color="#fff176" stop-opacity="1"/>
+          <stop offset="50%" stop-color="#ff9800" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#ff3d00" stop-opacity="0.7"/>
+        </radialGradient>
+        <filter id="flicker" x="-50%" y="-50%" width="200%" height="200%">
+          <feTurbulence id="turb" type="fractalNoise" baseFrequency="0.02 0.1" numOctaves="2" seed="2" result="t1"/>
+          <feDisplacementMap in2="t1" in="SourceGraphic" scale="30" xChannelSelector="R" yChannelSelector="G"/>
+          <animate xlink:href="#turb" attributeName="seed" values="2;6;5;7;2" dur="1.7s" repeatCount="indefinite"/>
+        </filter>
+      </defs>
+      <g filter="url(#flicker)">
+        <path d="M0,140 
+          Q50,110 100,120 
+          Q150,130 200,110 
+          Q250,90 300,120 
+          Q350,140 400,120 
+          Q450,100 500,130 
+          Q550,140 600,120 
+          Q650,110 700,130 
+          Q750,140 800,120 
+          L800,140Z" 
+          fill="url(#fireGrad)" opacity="0.88"/>
+        <path d="M0,140 
+          Q60,130 120,120 
+          Q180,105 240,130 
+          Q300,140 360,115 
+          Q420,100 480,125 
+          Q540,140 600,110 
+          Q660,100 720,130 
+          Q780,140 800,125 
+          L800,140Z" 
+          fill="url(#fireGrad)" opacity="0.7"/>
+      </g>
+    </svg>
+  </div>
 </body>
 </html>
